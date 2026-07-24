@@ -1,73 +1,189 @@
 # 🐕 IoT-Based Smart Dog Attack Prevention System
 
-## 📌 Project Overview
-
-The **IoT-Based Smart Dog Attack Prevention System** is a child safety project designed to help protect children from potential stray dog attacks.
-
-The system uses a smart wearable reflector and IoT-based technology to detect potential dog threats and provide early warnings. The goal is to improve child safety by providing an alert before a dangerous situation develops.
+An IoT-based child safety system designed to detect movement and activate an ultrasonic frequency emitter as an early-warning/animal-deterrent mechanism.
 
 ---
 
-## ❗ Problem Statement
+## 📌 Project Overview
 
-Stray dog attacks can pose a serious safety risk, especially to small children. Children may not always recognize dangerous situations or react quickly when a dog approaches them.
+Stray dog encounters can pose safety risks, especially for small children. This project explores a compact IoT-based system that detects movement using a **PIR sensor** and automatically activates an **ultrasonic frequency emitter** through a **5V relay**.
 
-This project aims to provide a smart safety solution that can detect potential threats and alert the child and/or guardian at an early stage.
+An LED indicator provides visual feedback whenever movement is detected.
+
+The system is built using an **Arduino UNO** and can be developed and tested using the **Arduino IDE** and **Wokwi** simulation platform.
 
 ---
 
 ## 🎯 Objectives
 
-* To improve child safety in areas with stray dog activity
-* To detect the presence of nearby dogs or potential threats
-* To provide early warnings through alerts
-* To develop a compact and portable IoT-based safety device
-* To enable real-time monitoring and emergency notifications
+* To develop an IoT-based animal detection system
+* To detect movement using a PIR sensor
+* To automatically activate an ultrasonic frequency emitter
+* To provide visual detection feedback through an LED
+* To create a low-cost and portable safety-oriented prototype
+* To explore the use of IoT for real-world safety applications
 
 ---
 
-## ⚙️ Proposed Working
+## 🏗️ System Architecture
 
-1. The child wears the smart safety reflector/device.
-2. Sensors detect nearby dogs or potential threats.
-3. The system processes the sensor data.
-4. If a potential danger is detected, the device generates an alert.
-5. The child and/or guardian receives a warning.
-6. IoT connectivity can be used for remote monitoring and notifications.
+```text
+                    ┌─────────────────────┐
+                    │     PIR SENSOR      │
+                    │   HC-SR501 Motion    │
+                    │      Detection       │
+                    └──────────┬──────────┘
+                               │
+                               │ Motion Signal
+                               ▼
+                    ┌─────────────────────┐
+                    │    ARDUINO UNO      │
+                    │                     │
+                    │  D2 ← PIR Sensor    │
+                    │  D8 → Relay Control │
+                    │  D13 → LED Status   │
+                    └───────┬─────┬───────┘
+                            │     │
+                    Relay Control  │ LED Indication
+                            │     │
+                            ▼     ▼
+                    ┌──────────┐ ┌──────────┐
+                    │ 5V RELAY │ │   LED    │
+                    └────┬─────┘ └──────────┘
+                         │
+                         │ Switching
+                         ▼
+              ┌─────────────────────────┐
+              │ ULTRASONIC FREQUENCY    │
+              │        EMITTER           │
+              └─────────────────────────┘
+```
 
 ---
 
-## 🔧 Technologies & Components
+## ⚙️ Working Principle
 
-* Internet of Things (IoT)
-* Sensors
-* Microcontroller
-* Wireless Communication
-* Alert/Buzzer System
-* GPS (Optional)
-* Mobile/Cloud Connectivity (Optional)
+1. The **PIR sensor** continuously monitors for movement.
+2. When movement is detected, the PIR sensor sends a HIGH signal to **Arduino Digital Pin D2**.
+3. The Arduino processes the signal.
+4. The Arduino activates the **5V relay through Digital Pin D8**.
+5. The relay switches ON the ultrasonic frequency emitter.
+6. The LED connected to **Digital Pin D13** turns ON as a visual indication.
+7. The system keeps the emitter active for **5 seconds**.
+8. The relay and LED are then turned OFF.
+
+---
+
+## 🔌 Wiring Table
+
+### PIR Sensor (HC-SR501)
+
+| PIR Sensor Pin | Arduino UNO |
+| -------------- | ----------- |
+| VCC            | 5V          |
+| GND            | GND         |
+| OUT            | D2          |
+
+### 5V Relay Module
+
+| Relay Pin | Arduino UNO |
+| --------- | ----------- |
+| VCC       | 5V          |
+| GND       | GND         |
+| IN        | D8          |
+
+### Relay Output
+
+| Relay Terminal | Connection             |
+| -------------- | ---------------------- |
+| COM            | 5V External Supply     |
+| NO             | Ultrasonic Emitter (+) |
+| Emitter (-)    | GND                    |
+
+### LED Indicator
+
+| LED Connection | Arduino UNO               |
+| -------------- | ------------------------- |
+| Positive (+)   | D13 through 220Ω resistor |
+| Negative (-)   | GND                       |
+
+---
+
+## 🧰 Components Used
+
+### Hardware
+
+* Arduino UNO Board
+* HC-SR501 PIR Motion Sensor
+* 5V Relay Module
+* Ultrasonic Frequency Emitter
+* DC Battery
+* Breadboard
+* Jumper Wires
+* Copper Wires
+* USB Cable
+* Laser Light
+* Push Button
+* 220Ω Resistor
+* LED
+
+### Software & Simulation
+
+* Arduino IDE
+* Wokwi
+
+---
+
+## 📁 Project Architecture
+
+```text
+iot-dog-safety-reflector/
+│
+├── README.md
+│
+├── src/
+│   └── dog_safety_reflector.ino
+│
+└── docs/
+    ├── components-used.md
+    └── pin-connections.md
+```
+
+---
+
+## 💻 Source Code
+
+The Arduino source code is available in:
+
+```text
+src/dog_safety_reflector.ino
+```
 
 ---
 
 ## 🌟 Key Features
 
-✅ Smart wearable safety device
-✅ Potential dog threat detection
-✅ Early warning system
-✅ IoT-based monitoring
-✅ Child safety focused
-✅ Portable and user-friendly design
+* 🐕 Motion-based animal detection
+* ⚡ Automatic relay activation
+* 🔊 Ultrasonic frequency emitter control
+* 💡 LED-based detection indication
+* 🔌 Arduino UNO control system
+* 🔋 External power support
+* 🧪 Wokwi simulation support
+* 💰 Low-cost prototype design
 
 ---
 
 ## 🔮 Future Enhancements
 
-* AI-based dog behavior recognition
-* Mobile application for parents
-* Real-time GPS tracking
+* AI-based animal detection using a camera
+* Mobile application for real-time alerts
+* GPS location tracking
 * Cloud-based monitoring
-* Camera-based threat detection
-* Machine Learning-based danger prediction
+* Image recognition and classification
+* Machine learning-based threat detection
+* Rechargeable battery system
+* Improved weather-resistant enclosure
 
 ---
 
@@ -75,9 +191,12 @@ This project aims to provide a smart safety solution that can detect potential t
 
 **Gowrinadh Chedella**
 
-🎓 Computer Science Engineering Student
-🏫 MLR Institute of Technology
+Computer Science Engineering Student
+MLR Institute of Technology
 
 ---
 
-⭐ This project focuses on using IoT technology to solve a real-world child safety problem.
+⭐ *Building technology to solve real-world problems.*
+
+```
+```
